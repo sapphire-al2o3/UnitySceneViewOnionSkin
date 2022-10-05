@@ -34,6 +34,7 @@ public static class UnitySceneViewOnionSkin
         {
             GUI.color = new Color(1, 1, 1, 0.5f);
             GUI.DrawTexture(new Rect(0, 1, renderTexture.width, renderTexture.height), renderTexture);
+            GUI.color = color;
         }
 
         if (GUILayout.Button("Capture", GUILayout.Width(120)))
