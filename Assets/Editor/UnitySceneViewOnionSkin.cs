@@ -20,9 +20,9 @@ public static class UnitySceneViewOnionSkin
             renderTexture = new RenderTexture(tmp.descriptor);
         }
 
-        SceneView.lastActiveSceneView.camera.targetTexture = renderTexture;
-        SceneView.lastActiveSceneView.camera.Render();
-        SceneView.lastActiveSceneView.camera.targetTexture = tmp;
+        camera.targetTexture = renderTexture;
+        camera.Render();
+        camera.targetTexture = tmp;
     }
 
     static void OnGUISceneViewe(SceneView sceneView)
