@@ -19,10 +19,12 @@ public static class UnitySceneViewOnionSkin
         {
             renderTexture = new RenderTexture(tmp.descriptor);
         }
-
+        var clearFlags = camera.clearFlags;
+        camera.clearFlags = CameraClearFlags.Depth;
         camera.targetTexture = renderTexture;
         camera.Render();
         camera.targetTexture = tmp;
+        camera.clearFlags = clearFlags;
     }
 
     static void OnGUISceneViewe(SceneView sceneView)
