@@ -20,7 +20,9 @@ public static class UnitySceneViewOnionSkin
             renderTexture = new RenderTexture(tmp.descriptor);
         }
         var clearFlags = camera.clearFlags;
-        camera.clearFlags = CameraClearFlags.Depth;
+        //camera.clearFlags = CameraClearFlags.Depth;
+        camera.clearFlags = CameraClearFlags.SolidColor;
+        camera.backgroundColor = new Color(0.0f, 0.0f, 0.0f, 0.0f);
         camera.targetTexture = renderTexture;
         camera.Render();
         camera.targetTexture = tmp;
