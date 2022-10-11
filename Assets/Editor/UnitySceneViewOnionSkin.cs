@@ -11,6 +11,7 @@ public static class UnitySceneViewOnionSkin
 
     static RenderTexture renderTexture = null;
     static float alpha = 0.5f;
+    static bool clearDepth = false;
 
     static void Capture(Camera camera)
     {
@@ -20,8 +21,7 @@ public static class UnitySceneViewOnionSkin
             renderTexture = new RenderTexture(tmp.descriptor);
         }
         var clearFlags = camera.clearFlags;
-        //camera.clearFlags = CameraClearFlags.Depth;
-        camera.clearFlags = CameraClearFlags.SolidColor;
+        camera.clearFlags = clearDepth ? CameraClearFlags.Depth : CameraClearFlags.SolidColor;
         camera.backgroundColor = new Color(0.0f, 0.0f, 0.0f, 0.0f);
         camera.targetTexture = renderTexture;
         camera.Render();
@@ -43,6 +43,8 @@ public static class UnitySceneViewOnionSkin
         }
 
         alpha = EditorGUILayout.Slider(alpha, 0.0f, 1.0f, GUILayout.Width(120));
+
+        clearDepth = EditorGUILayout.ToggleLeft("Clear Only Depth", clearDepth);
 
         if (GUILayout.Button("Capture", GUILayout.Width(120)))
         {
