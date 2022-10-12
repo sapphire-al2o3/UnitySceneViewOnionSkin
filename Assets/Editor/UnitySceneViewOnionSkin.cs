@@ -12,6 +12,7 @@ public static class UnitySceneViewOnionSkin
     static RenderTexture renderTexture = null;
     static float alpha = 0.5f;
     static bool clearDepth = false;
+    static bool fold = true;
 
     static void Capture(Camera camera)
     {
@@ -32,6 +33,8 @@ public static class UnitySceneViewOnionSkin
     static void OnGUISceneViewe(SceneView sceneView)
     {
         Handles.BeginGUI();
+
+        EditorGUILayout.BeginVertical("box", GUILayout.Width(100));
 
         var color = GUI.color;
 
@@ -56,6 +59,8 @@ public static class UnitySceneViewOnionSkin
             Object.DestroyImmediate(renderTexture);
             renderTexture = null;
         }
+
+        EditorGUILayout.EndVertical();
 
         Handles.EndGUI();
     }
