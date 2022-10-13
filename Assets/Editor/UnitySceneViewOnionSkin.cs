@@ -13,6 +13,7 @@ public static class UnitySceneViewOnionSkin
     static float alpha = 0.5f;
     static bool clearDepth = false;
     static bool fold = true;
+    static bool visible = true;
 
     static void Capture(Camera camera)
     {
@@ -34,11 +35,11 @@ public static class UnitySceneViewOnionSkin
     {
         Handles.BeginGUI();
 
-        EditorGUILayout.BeginVertical("box", GUILayout.Width(100));
+        EditorGUILayout.BeginVertical("box", GUILayout.MaxWidth(100));
 
         var color = GUI.color;
 
-        if (renderTexture != null)
+        if (renderTexture != null && visible)
         {
             GUI.color = new Color(1, 1, 1, alpha);
             GUI.DrawTexture(new Rect(0, 1, renderTexture.width, renderTexture.height), renderTexture);
@@ -47,6 +48,7 @@ public static class UnitySceneViewOnionSkin
 
         alpha = EditorGUILayout.Slider(alpha, 0.0f, 1.0f, GUILayout.Width(120));
 
+        visible = EditorGUILayout.ToggleLeft("Visible", visible);
         clearDepth = EditorGUILayout.ToggleLeft("Clear Only Depth", clearDepth);
 
         if (GUILayout.Button("Capture", GUILayout.Width(120)))
