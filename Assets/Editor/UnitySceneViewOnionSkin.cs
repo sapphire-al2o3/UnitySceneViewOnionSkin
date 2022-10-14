@@ -35,7 +35,7 @@ public static class UnitySceneViewOnionSkin
     {
         Handles.BeginGUI();
 
-        EditorGUILayout.BeginVertical("box", GUILayout.MaxWidth(100));
+        EditorGUILayout.BeginVertical("box", GUILayout.MaxWidth(160));
 
         var color = GUI.color;
 
@@ -46,7 +46,7 @@ public static class UnitySceneViewOnionSkin
             GUI.color = color;
         }
 
-        alpha = EditorGUILayout.Slider(alpha, 0.0f, 1.0f, GUILayout.Width(120));
+        alpha = EditorGUILayout.Slider(alpha, 0.0f, 1.0f, GUILayout.Width(180));
 
         visible = EditorGUILayout.ToggleLeft("Visible", visible);
         clearDepth = EditorGUILayout.ToggleLeft("Clear Only Depth", clearDepth);
