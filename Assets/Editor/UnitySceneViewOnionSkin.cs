@@ -35,8 +35,6 @@ public static class UnitySceneViewOnionSkin
     {
         Handles.BeginGUI();
 
-        EditorGUILayout.BeginVertical("box", GUILayout.MaxWidth(160));
-
         var color = GUI.color;
 
         if (renderTexture != null && visible)
@@ -45,21 +43,30 @@ public static class UnitySceneViewOnionSkin
             GUI.DrawTexture(new Rect(0, 1, renderTexture.width, renderTexture.height), renderTexture);
             GUI.color = color;
         }
+        var style = GUI.skin.window;
+        style.padding.top = style.padding.bottom;
+        style.margin.left = 10;
+        EditorGUILayout.BeginVertical(style, GUILayout.MinWidth(120), GUILayout.MinHeight(20));
+        fold = EditorGUILayout.Foldout(fold, "OnionSkin", true);
 
-        alpha = EditorGUILayout.Slider(alpha, 0.0f, 1.0f, GUILayout.Width(180));
-
-        visible = EditorGUILayout.ToggleLeft("Visible", visible);
-        clearDepth = EditorGUILayout.ToggleLeft("Clear Only Depth", clearDepth);
-
-        if (GUILayout.Button("Capture", GUILayout.Width(120)))
+        if (fold)
         {
-            Capture(sceneView.camera);
-        }
 
-        if (GUILayout.Button("Clear", GUILayout.Width(120)))
-        {
-            Object.DestroyImmediate(renderTexture);
-            renderTexture = null;
+            alpha = EditorGUILayout.Slider(alpha, 0.0f, 1.0f, GUILayout.Width(160));
+
+            visible = EditorGUILayout.ToggleLeft("Visible", visible);
+            clearDepth = EditorGUILayout.ToggleLeft("Clear Only Depth", clearDepth);
+
+            if (GUILayout.Button("Capture", GUILayout.Width(120)))
+            {
+                Capture(sceneView.camera);
+            }
+
+            if (GUILayout.Button("Clear", GUILayout.Width(120)))
+            {
+                Object.DestroyImmediate(renderTexture);
+                renderTexture = null;
+            }
         }
 
         EditorGUILayout.EndVertical();
