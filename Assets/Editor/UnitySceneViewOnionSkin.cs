@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEditor;
+using UnityEditorInternal;
 
 [InitializeOnLoad]
 public static class UnitySceneViewOnionSkin
@@ -14,6 +15,7 @@ public static class UnitySceneViewOnionSkin
     static bool clearDepth = false;
     static bool fold = true;
     static bool visible = true;
+    static int layer = -1;
 
     static void Capture(Camera camera)
     {
@@ -23,12 +25,15 @@ public static class UnitySceneViewOnionSkin
             renderTexture = new RenderTexture(tmp.descriptor);
         }
         var clearFlags = camera.clearFlags;
+        var mask = camera.cullingMask;
         camera.clearFlags = clearDepth ? CameraClearFlags.Depth : CameraClearFlags.SolidColor;
+        camera.cullingMask = layer;
         camera.backgroundColor = new Color(0.0f, 0.0f, 0.0f, 0.0f);
         camera.targetTexture = renderTexture;
         camera.Render();
         camera.targetTexture = tmp;
         camera.clearFlags = clearFlags;
+        camera.cullingMask = mask;
     }
 
     static void OnGUISceneViewe(SceneView sceneView)
@@ -46,16 +51,16 @@ public static class UnitySceneViewOnionSkin
         var style = GUI.skin.window;
         style.padding.top = style.padding.bottom;
         style.margin.left = 10;
-        EditorGUILayout.BeginVertical(style, GUILayout.MinWidth(120), GUILayout.MinHeight(20));
+
+        EditorGUILayout.BeginVertical(style, GUILayout.MinWidth(100), GUILayout.MinHeight(20));
         fold = EditorGUILayout.Foldout(fold, "OnionSkin", true);
 
         if (fold)
         {
-
             alpha = EditorGUILayout.Slider(alpha, 0.0f, 1.0f, GUILayout.Width(160));
-
             visible = EditorGUILayout.ToggleLeft("Visible", visible);
             clearDepth = EditorGUILayout.ToggleLeft("Clear Only Depth", clearDepth);
+            layer = EditorGUILayout.MaskField(layer, InternalEditorUtility.layers);
 
             if (GUILayout.Button("Capture", GUILayout.Width(120)))
             {
