@@ -8,6 +8,9 @@ public static class UnitySceneViewOnionSkin
     static UnitySceneViewOnionSkin()
     {
         SceneView.duringSceneGui += OnGUISceneViewe;
+        alpha = EditorPrefs.GetFloat("alpha", 0.5f);
+        clearDepth = EditorPrefs.GetBool("clearDepth", false);
+        layer = EditorPrefs.GetInt("layer", -1);
     }
 
     static RenderTexture renderTexture = null;
@@ -61,6 +64,10 @@ public static class UnitySceneViewOnionSkin
             visible = EditorGUILayout.ToggleLeft("Visible", visible);
             clearDepth = EditorGUILayout.ToggleLeft("Clear Only Depth", clearDepth);
             layer = EditorGUILayout.MaskField(layer, InternalEditorUtility.layers);
+
+            EditorPrefs.SetFloat("alpha", alpha);
+            EditorPrefs.SetBool("clearDepth", clearDepth);
+            EditorPrefs.SetInt("layer", layer);
 
             if (GUILayout.Button("Capture", GUILayout.Width(120)))
             {
