@@ -55,7 +55,7 @@ public static class UnitySceneViewOnionSkin
         style.padding.top = style.padding.bottom;
         style.margin.left = 10;
 
-        EditorGUILayout.BeginVertical(style, GUILayout.MinWidth(100), GUILayout.MinHeight(20));
+        EditorGUILayout.BeginVertical(style, GUILayout.MinWidth(160), GUILayout.MinHeight(20));
         fold = EditorGUILayout.Foldout(fold, "OnionSkin", true);
 
         if (fold)
@@ -63,7 +63,7 @@ public static class UnitySceneViewOnionSkin
             alpha = EditorGUILayout.Slider(alpha, 0.0f, 1.0f, GUILayout.Width(160));
             visible = EditorGUILayout.ToggleLeft("Visible", visible);
             clearDepth = EditorGUILayout.ToggleLeft("Clear Only Depth", clearDepth);
-            layer = EditorGUILayout.MaskField(layer, InternalEditorUtility.layers);
+            layer = EditorGUILayout.MaskField(layer, InternalEditorUtility.layers, GUILayout.Width(160));
 
             EditorPrefs.SetFloat("alpha", alpha);
             EditorPrefs.SetBool("clearDepth", clearDepth);
