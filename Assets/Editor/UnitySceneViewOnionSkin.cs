@@ -39,6 +39,26 @@ public static class UnitySceneViewOnionSkin
         camera.cullingMask = mask;
     }
 
+    static void ContinueCapture(Camera camera, int frame)
+    {
+        clearDepth = true;
+
+        int i = 0;
+        EditorApplication.CallbackFunction update = null;
+        update = () =>
+        {
+            if (i >= frame)
+            {
+                EditorApplication.update -= update;
+                return;
+            }
+            Capture(camera);
+            i++;
+        };
+
+        EditorApplication.update += update;
+    }
+
     static void OnGUISceneViewe(SceneView sceneView)
     {
         Handles.BeginGUI();
@@ -78,6 +98,11 @@ public static class UnitySceneViewOnionSkin
             {
                 Object.DestroyImmediate(renderTexture);
                 renderTexture = null;
+            }
+
+            if (GUILayout.Button("Burst", GUILayout.Width(120)))
+            {
+                ContinueCapture(sceneView.camera, 30);
             }
         }
 
