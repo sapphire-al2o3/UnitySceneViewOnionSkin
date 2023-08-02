@@ -39,7 +39,7 @@ public static class UnitySceneViewOnionSkin
         camera.cullingMask = mask;
     }
 
-    static void ContinueCapture(Camera camera, int frame)
+    static void ContinueCapture(Camera camera, int frame, int step)
     {
         clearDepth = true;
 
@@ -52,7 +52,10 @@ public static class UnitySceneViewOnionSkin
                 EditorApplication.update -= update;
                 return;
             }
-            Capture(camera);
+            if (i % step == 0)
+            {
+                Capture(camera);
+            }
             i++;
         };
 
@@ -102,7 +105,7 @@ public static class UnitySceneViewOnionSkin
 
             if (GUILayout.Button("Burst", GUILayout.Width(120)))
             {
-                ContinueCapture(sceneView.camera, 30);
+                ContinueCapture(sceneView.camera, 30, 4);
             }
         }
 
