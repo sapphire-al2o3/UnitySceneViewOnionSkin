@@ -19,6 +19,8 @@ public static class UnitySceneViewOnionSkin
     static bool fold = true;
     static bool visible = true;
     static int layer = -1;
+    static int frame = 30;
+    static int step = 1;
 
     static void Capture(Camera camera)
     {
@@ -103,9 +105,12 @@ public static class UnitySceneViewOnionSkin
                 renderTexture = null;
             }
 
+            frame = EditorGUILayout.IntField("Frame", frame);
+            step = EditorGUILayout.IntField("Step", step);
+
             if (GUILayout.Button("Burst", GUILayout.Width(120)))
             {
-                ContinueCapture(sceneView.camera, 30, 4);
+                ContinueCapture(sceneView.camera, frame, step);
             }
         }
 
