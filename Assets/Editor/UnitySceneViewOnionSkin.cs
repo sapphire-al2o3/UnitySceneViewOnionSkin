@@ -11,6 +11,8 @@ public static class UnitySceneViewOnionSkin
         alpha = EditorPrefs.GetFloat("alpha", 0.5f);
         clearDepth = EditorPrefs.GetBool("clearDepth", false);
         layer = EditorPrefs.GetInt("layer", -1);
+        frame = EditorPrefs.GetInt("frame", 30);
+        step = EditorPrefs.GetInt("step", 1);
     }
 
     static RenderTexture renderTexture = null;
@@ -107,6 +109,9 @@ public static class UnitySceneViewOnionSkin
 
             frame = EditorGUILayout.IntField("Frame", frame);
             step = EditorGUILayout.IntField("Step", step);
+
+            EditorPrefs.SetInt("frame", frame);
+            EditorPrefs.SetInt("step", step);
 
             if (GUILayout.Button("Burst", GUILayout.Width(120)))
             {
