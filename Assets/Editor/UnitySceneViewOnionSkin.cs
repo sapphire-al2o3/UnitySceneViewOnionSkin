@@ -61,7 +61,6 @@ public static class UnitySceneViewOnionSkin
             {
                 if (i % step == 0)
                 {
-                    Debug.Log($"{Time.frameCount}");
                     Capture(camera);
                 }
                 frameCount = Time.frameCount;
