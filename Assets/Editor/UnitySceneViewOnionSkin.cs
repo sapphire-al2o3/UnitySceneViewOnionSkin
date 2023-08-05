@@ -48,6 +48,7 @@ public static class UnitySceneViewOnionSkin
         clearDepth = true;
 
         int i = 0;
+        int frameCount = 0;
         EditorApplication.CallbackFunction update = null;
         update = () =>
         {
@@ -56,11 +57,16 @@ public static class UnitySceneViewOnionSkin
                 EditorApplication.update -= update;
                 return;
             }
-            if (i % step == 0)
+            if (frameCount != Time.frameCount)
             {
-                Capture(camera);
+                if (i % step == 0)
+                {
+                    Debug.Log($"{Time.frameCount}");
+                    Capture(camera);
+                }
+                frameCount = Time.frameCount;
+                i++;
             }
-            i++;
         };
 
         EditorApplication.update += update;
