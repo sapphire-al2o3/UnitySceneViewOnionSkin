@@ -7,7 +7,7 @@ public static class UnitySceneViewOnionSkin
 {
     static UnitySceneViewOnionSkin()
     {
-        SceneView.duringSceneGui += OnGUISceneViewe;
+        SceneView.duringSceneGui += OnGUISceneView;
         alpha = EditorPrefs.GetFloat("alpha", 0.5f);
         clearDepth = EditorPrefs.GetBool("clearDepth", false);
         layer = EditorPrefs.GetInt("layer", -1);
@@ -71,7 +71,7 @@ public static class UnitySceneViewOnionSkin
         EditorApplication.update += update;
     }
 
-    static void OnGUISceneViewe(SceneView sceneView)
+    static void OnGUISceneView(SceneView sceneView)
     {
         Handles.BeginGUI();
 
